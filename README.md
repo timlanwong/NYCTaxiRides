@@ -19,7 +19,7 @@ Part A
 -There is also an ethics notebook required for Part A.
 
 
-Part B (Due Friday, 11/30, 11:59 PM)
+Part B
 
 -External Datasets
 
