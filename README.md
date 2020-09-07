@@ -35,4 +35,4 @@ Part B
 
 -Submission to Kaggle
 
-The code is all in python.
+The code is all in python. There are a total of 4 notebooks, plus some extras notebooks that highlight my work and thought process that goes into my final prediction model.
