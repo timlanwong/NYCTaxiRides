@@ -1,0 +1,1822 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{proj2\_part1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Before you turn in the homework, make sure everything runs as expected.
+To do so, select \textbf{Kernel}\(\rightarrow\)\textbf{Restart \& Run
+All} in the toolbar above. Remember to submit both on \textbf{DataHub}
+and \textbf{Gradescope}.
+
+Please fill in your name and include a list of your collaborators below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{NAME} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Timlan Wong}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{COLLABORATORS} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \section{Project 2: NYC Taxi Rides}\label{project-2-nyc-taxi-rides}
+
+\section{Part 1: Data Wrangling}\label{part-1-data-wrangling}
+
+In this notebook, we will first query a database to fetch our data and
+generate training and test sets.
+
+    \section{Imports}\label{imports}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{pathlib} \PY{k}{import} \PY{n}{Path}
+        \PY{k+kn}{from} \PY{n+nn}{sqlalchemy} \PY{k}{import} \PY{n}{create\PYZus{}engine}
+        \PY{k+kn}{from} \PY{n+nn}{utils} \PY{k}{import} \PY{n}{timeit}
+\end{Verbatim}
+
+
+    \subsection{SQLite}\label{sqlite}
+
+\href{https://www.sqlite.org/whentouse.html}{SQLite} is a SQL database
+engine that excels at managing data stored locally in a file. We will be
+using SQLite to query for our data. First let's check that our database
+is accessible and set up properly. Run the following line to make sure
+the data is there and pay attention to how big the data is.
+
+In practice, data is stored in a distributed SQL database that spans
+machines (e.g.
+\href{https://stackoverflow.com/questions/20030436/what-is-hive-is-it-a-database}{Hive})
+or even continents (e.g.
+\href{https://en.wikipedia.org/wiki/Spanner_(database)}{Spanner}).
+However, how you query the data will remain the same: the SQL language.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{!}ls \PYZhy{}lh /srv/db/taxi\PYZus{}2016\PYZus{}student\PYZus{}small.sqlite
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-rw-r--r-- 1 root root 2.1G Nov  7 04:43 /srv/db/taxi\_2016\_student\_small.sqlite
+
+    \end{Verbatim}
+
+    Running this line will connect to SQLite engine and test the connection
+by printing out the total number of rows.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{DB\PYZus{}URI} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sqlite:////srv/db/taxi\PYZus{}2016\PYZus{}student\PYZus{}small.sqlite}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{TABLE\PYZus{}NAME} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{taxi}\PY{l+s+s2}{\PYZdq{}}
+        
+        \PY{n}{sql\PYZus{}engine} \PY{o}{=} \PY{n}{create\PYZus{}engine}\PY{p}{(}\PY{n}{DB\PYZus{}URI}\PY{p}{)}
+        \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Table }\PY{l+s+si}{\PYZob{}TABLE\PYZus{}NAME\PYZcb{}}\PY{l+s+s2}{ has }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{sql\PYZus{}engine.execute(f}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{SELECT COUNT(*) FROM }\PY{l+s+si}{\PYZob{}TABLE\PYZus{}NAME\PYZcb{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{).first()[0]\PYZcb{} rows!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Table taxi has 15000000 rows!
+0.93 s elapsed
+
+    \end{Verbatim}
+
+    Quick note: One piece of syntax above that you may not be familiar with
+is the Python \href{https://realpython.com/python-f-strings/}{f-string},
+a relatively new feature to the language.
+
+Basically, it automatically replaces text inside curly braces with the
+results of the given expression. For example:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{bloop} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wet egg}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}bloop\PYZcb{}}\PY{l+s+s2}{ gets replaced, oh also }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{3 + 5\PYZcb{}.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+wet egg gets replaced, oh also 8.
+
+    \end{Verbatim}
+
+    \section{NYC Taxi Data}\label{nyc-taxi-data}
+
+We are working with a much larger dataset (15,000,000 rows!), larger
+than anything we have worked with before. If you are not careful in
+writing your queries, you may crash your kernel. Please do not
+\texttt{"SELECT\ *\ FROM\ taxi"}. This is a reality that we must face;
+we do not always get to work with supercomputers that can load
+everything in memory.
+
+    \subsection{Data Overview}\label{data-overview}
+
+Below is the schema for the \texttt{taxi} database:
+
+\begin{verbatim}
+CREATE TABLE taxi_train(
+  "record_id" integer primary key,
+  "VendorID" INTEGER,
+  "tpep_pickup_datetime" TEXT,
+  "tpep_dropoff_datetime" TEXT,
+  "passenger_count" INTEGER,
+  "trip_distance" REAL,
+  "pickup_longitude" REAL,
+  "pickup_latitude" REAL,
+  "RatecodeID" INTEGER,
+  "store_and_fwd_flag" TEXT,
+  "dropoff_longitude" REAL,
+  "dropoff_latitude" REAL,
+  "payment_type" INTEGER,
+  "fare_amount" REAL,
+  "extra" REAL,
+  "mta_tax" REAL,
+  "tip_amount" REAL,
+  "tolls_amount" REAL,
+  "improvement_surcharge" REAL,
+  "total_amount" REAL
+);   
+\end{verbatim}
+
+Here is a description for your convenience: - \texttt{recordID}: primary
+key of this dataset - \texttt{VendorID}: a code indicating the provider
+associated with the trip record - \texttt{passenger\_count}: the number
+of passengers in the vehicle (driver entered value) -
+\texttt{trip\_distance}: trip distance - \texttt{dropoff\_datetime}:
+date and time when the meter was engaged - \texttt{pickup\_datetime}:
+date and time when the meter was disengaged -
+\texttt{pickup\_longitude}: the longitude where the meter was engaged -
+\texttt{pickup\_latitude}: the latitude where the meter was engaged -
+\texttt{dropoff\_longitude}: the longitude where the meter was
+disengaged - \texttt{dropoff\_latitude}: the latitude where the meter
+was disengaged - \texttt{duration}: duration of the trip in seconds -
+\texttt{payment\_type}: the payment type - \texttt{fare\_amount}: the
+time-and-distance fare calculated by the meter - \texttt{extra}:
+miscellaneous extras and surcharges - \texttt{mta\_tax}: MTA tax that is
+automatically triggered based on the metered rate in use\\
+- \texttt{tip\_amount}: the amount of credit card tips, cash tips are
+not included - \texttt{tolls\_amount}: amount paid for tolls -
+\texttt{improvement\_surcharge}: fixed fee - \texttt{total\_amount}:
+total amount paid by passengers, cash tips are not included
+
+    \subsection{Question 1: SQL Warmup}\label{question-1-sql-warmup}
+
+Let's begin with some SQL questions! Remember, be careful not to select
+too many entries in your query. Your kernel \textbf{will} crash! Please
+write your queries in the provided triple quotes and format them with
+proper SQL style. Below is an example which grabs the first 5 rows from
+the \texttt{taxi} database.
+
+We will use the \texttt{timeit} contextmanager from the \texttt{utils}
+file to time each SQL execution. \emph{Beware that SQL can be slow
+sometimes; enterprise SQL quries often run for hours or days!} (several
+minutes execution time is
+\href{https://hortonworks.com/blog/benchmarking-apache-hive-13-enterprise-hadoop/}{considered
+fast}). In each cell, we have added anitipated execution time to use as
+a guideline for writing your quries.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{q1x\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{            SELECT * }
+        \PY{l+s+s2}{            FROM }\PY{l+s+si}{\PYZob{}TABLE\PYZus{}NAME\PYZcb{}}
+        \PY{l+s+s2}{            LIMIT 5;}
+        \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} this query should take less than a second}
+            \PY{n}{q1x\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{q1x\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+        \PY{n}{q1x\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.01 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+        0          1         2  2016-01-01 00:00:00   2016-01-01 00:00:00   
+        1          8         1  2016-01-01 00:00:01   2016-01-01 00:11:55   
+        2         17         2  2016-01-01 00:00:05   2016-01-01 00:07:14   
+        3         18         1  2016-01-01 00:00:06   2016-01-01 00:04:44   
+        4         22         2  2016-01-01 00:00:08   2016-01-01 00:18:51   
+        
+           passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+        0                2           1.10        -73.990372        40.734695   
+        1                1           1.20        -73.979424        40.744614   
+        2                1           1.92        -73.973091        40.795361   
+        3                1           1.70        -73.982101        40.774696   
+        4                1           3.09        -73.999069        40.720173   
+        
+           RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+        0           1                  N         -73.981842         40.732407   
+        1           1                  N         -73.992035         40.753944   
+        2           1                  N         -73.978371         40.773151   
+        3           1                  Y         -73.970940         40.796707   
+        4           1                  N         -73.973389         40.756561   
+        
+           payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+        0             2          7.5    0.5      0.5        0.00           0.0   
+        1             2          9.0    0.5      0.5        0.00           0.0   
+        2             2          7.5    0.5      0.5        0.00           0.0   
+        3             1          7.0    0.5      0.5        1.65           0.0   
+        4             2         14.5    0.5      0.5        0.00           0.0   
+        
+           improvement\_surcharge  total\_amount  
+        0                    0.3          8.80  
+        1                    0.3         10.30  
+        2                    0.3          8.80  
+        3                    0.3          9.95  
+        4                    0.3         15.80  
+\end{Verbatim}
+            
+    \subsubsection{Question 1a}\label{question-1a}
+
+Select the top 1000 rows from the \texttt{taxi} database ordered by
+descending \texttt{total\_amount}. Note that this data is real uncleaned
+data, with all the strange quirks that come from such datasets, e.g.
+you'll see that the most expensive taxi ride was \$153,296.22, which is
+certainly some sort of error in the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{q1a\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{SELECT *}
+        \PY{l+s+s2}{FROM taxi}
+        \PY{l+s+s2}{ORDER BY total\PYZus{}amount DESC}
+        \PY{l+s+s2}{LIMIT 1000}
+        \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+        \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} This query is expected to run for less than 20 seconds.}
+            \PY{n}{q1a\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{n}{q1a\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+        \PY{n}{q1a\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+17.61 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+        0   15958593         1  2016-02-16 18:20:33   2016-02-16 18:36:33   
+        1   28810418         1  2016-03-20 11:44:34   2016-03-20 12:03:29   
+        2   63007353         1  2016-06-13 15:06:32   2016-06-13 15:07:36   
+        3   58271050         2  2016-05-27 14:38:36   2016-05-27 15:10:15   
+        4   50682006         1  2016-05-11 22:26:52   2016-05-11 22:32:08   
+        
+           passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+        0                1       151694.0        -74.015488        40.715931   
+        1                2       131091.4        -73.940979        40.819290   
+        2                1            0.0        -73.980293        40.755402   
+        3                1            0.0          0.000000         0.000000   
+        4                1            1.8          0.000000         0.000000   
+        
+           RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+        0           1                  Y         -73.992027         40.730694   
+        1           2                  N         -73.970802         40.751713   
+        2           2                  N         -73.980103         40.755180   
+        3           1                  N           0.000000          0.000000   
+        4           1                  N           0.000000          0.000000   
+        
+           payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+        0             2    153231.93  63.99     0.00         0.0          0.00   
+        1             3    126348.88  16.38     1.32         0.0          0.00   
+        2             3      8452.00   0.00     0.50         0.0          1.44   
+        3             2      4886.00   0.50     0.50         0.0          0.00   
+        4             3      3006.00 -34.72    35.52         0.0          0.00   
+        
+           improvement\_surcharge  total\_amount  
+        0                    0.3     153296.22  
+        1                    0.0     126366.58  
+        2                    0.3       8454.24  
+        3                    0.3       4887.30  
+        4                    0.0       3006.80  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{q1a\PYZus{}df}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{1000}
+        \PY{k}{assert} \PY{n}{q1a\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{q1a\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{999}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total\PYZus{}amount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsubsection{Question 1b}\label{question-1b}
+
+Get the \texttt{mean}, \texttt{max} and \texttt{min}
+\texttt{total\_amount} for each vendor. As above, you'll get strange
+answers, since finding the min and max of a big uncleaned dataset
+captures the most extreme outliers. Make sure your query outputs the
+columns in this exact order.
+
+    CREATE INDEX VendorID ON taxi (VendorID)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{q1b\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{SELECT AVG(total\PYZus{}amount) AS mean, MAX(total\PYZus{}amount) AS max, MIN(total\PYZus{}amount) AS min}
+        \PY{l+s+s2}{FROM taxi}
+        \PY{l+s+s2}{GROUP BY VendorID}
+        \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+        \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} This query is expected to run for about 10 seconds.}
+            \PY{n}{q1b\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q1b\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+        \PY{n}{q1b\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+9.04 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}         mean        max    min
+        0  15.981053  153296.22    0.0
+        1  16.276753    4887.30 -958.4
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{assert} \PY{n}{q1b\PYZus{}df}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{k}{assert} \PY{l+m+mi}{15} \PY{o}{\PYZlt{}} \PY{n}{q1b\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{17}
+         \PY{k}{assert} \PY{n}{q1b\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+m+mf}{4887.30}
+         \PY{k}{assert} \PY{n}{q1b\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mf}{958.4}
+\end{Verbatim}
+
+
+    \subsubsection{Question 1c}\label{question-1c}
+
+Find the total amount paid and pickup time for all rides that started
+June 28th, 2016, then order the result by total amount in descending
+order. Again, make sure your query outputs the columns in this exact
+order.
+
+\emph{Hint:} From the schema, note that \texttt{tpep\_pickup\_datetime}
+is a text field. We're effectively looking for strings that have a start
+time that comes after \texttt{2016-06-28\ 00:00:00} but before
+\texttt{2016-06-29\ 00:00:00}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{q1c\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT total\PYZus{}amount, tpep\PYZus{}pickup\PYZus{}datetime}
+         \PY{l+s+s2}{FROM taxi T}
+         \PY{l+s+s2}{WHERE T.tpep\PYZus{}pickup\PYZus{}datetime \PYZgt{} }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2016\PYZhy{}06\PYZhy{}28}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ AND T.tpep\PYZus{}pickup\PYZus{}datetime \PYZlt{} }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2016\PYZhy{}06\PYZhy{}29}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{ORDER BY total\PYZus{}amount DESC}
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} This query should take about 3 seconds.}
+             \PY{n}{q1c\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q1c\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{q1c\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.06 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    total\_amount tpep\_pickup\_datetime
+         0        390.99  2016-06-28 12:23:13
+         1        289.12  2016-06-28 15:14:42
+         2        286.30  2016-06-28 00:01:13
+         3        285.80  2016-06-28 13:34:12
+         4        275.30  2016-06-28 21:38:13
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{assert} \PY{n}{q1c\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]} \PY{o}{==} \PY{l+m+mf}{390.99}
+         \PY{k}{assert} \PY{n}{q1c\PYZus{}df}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{p}{(}\PY{l+m+mi}{74857}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Question 1d}\label{question-1d}
+
+Find all rides starting in the month of January in the year 2016,
+selecting only those entries whose \texttt{record\_id} ends in 00.
+
+Note: The rest of our questions in Part 1, Part 2 and Part 3 will be
+based off of the results of this query. In part 4, you will be to use
+anything else in the database for fitting a model (more later). Because
+of its importance for the rest of the assignment, your query must be
+correct for this question.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{q1d\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT * }
+         \PY{l+s+s2}{            FROM }\PY{l+s+si}{\PYZob{}TABLE\PYZus{}NAME\PYZcb{}}
+         \PY{l+s+s2}{            WHERE tpep\PYZus{}pickup\PYZus{}datetime}
+         \PY{l+s+s2}{                BETWEEN }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2016\PYZhy{}01\PYZhy{}01}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ AND }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{2016\PYZhy{}02\PYZhy{}01}\PY{l+s+s2}{\PYZsq{}}
+         \PY{l+s+s2}{                AND record\PYZus{}id }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{ 100 == 0}
+         \PY{l+s+s2}{            ORDER BY tpep\PYZus{}pickup\PYZus{}datetime}
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} This query should take less than 3 second}
+             \PY{n}{q1d\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q1d\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{q1d\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.44 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.982307         40.747406   
+         1           1                  N         -73.956688         40.747395   
+         2           1                  N         -73.974586         40.758282   
+         3           1                  N         -74.006714         40.744259   
+         4           1                  N         -73.958771         40.763844   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             2          8.0    0.5      0.5        0.00           0.0   
+         1             1         20.5    0.5      0.5        1.09           0.0   
+         2             1          9.5    0.5      0.5        2.16           0.0   
+         3             2          5.0    0.5      0.5        0.00           0.0   
+         4             1         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3          9.30  
+         1                    0.3         22.89  
+         2                    0.3         12.96  
+         3                    0.3          6.30  
+         4                    0.3         15.30  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{assert} \PY{n}{q1d\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tpep\PYZus{}pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2016\PYZhy{}01\PYZhy{}01}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{assert} \PY{n}{q1d\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tpep\PYZus{}pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2016\PYZhy{}02\PYZhy{}01}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{assert} \PY{n}{q1d\PYZus{}df}\PY{o}{.}\PY{n}{shape} \PY{o}{==} \PY{p}{(}\PY{l+m+mi}{23674}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Question 2: Data
+Inspection}\label{question-2-data-inspection}
+
+We will refer to the table generated by Question 1d as \texttt{Jan16}.
+Note that we have not explicitly built a table called \texttt{Jan16} in
+our SQL database. We are instead using \texttt{Jan16} to represent the
+mathematical object that results from Question 1d. Let us now check some
+basic properties of \texttt{Jan16}. We will be addressing the following
+properties within our dataset: - missing data values - duplicated values
+- range of duration values - range of latitude and longitude values -
+range of passenger count values
+
+It is good practice to check these properties when presented with a new
+dataset. There are two ways to check these properties: Approach one is
+to write SQL queries that directly interact with the database. Approach
+two is to create a pandas dataframe and use pandas methods. Since you've
+already gotten similar practice with pandas earlier in the semester,
+we'll stick with approach one.
+
+In the following problems, you'll check these properties using SQL
+queries. We'll also provide you with the pandas solution so that you can
+compare with your SQL based solution. In order to be able to provide
+these pandas solutions, we need to store the result of your
+\texttt{q1d\_query} into a dataframe, which we'll call
+\texttt{jan\_16\_df}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} less than 3 seconds}
+             \PY{n}{jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q1d\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tpep\PYZus{}pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tpep\PYZus{}pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tpep\PYZus{}dropoff\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tpep\PYZus{}dropoff\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.43 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.982307         40.747406   
+         1           1                  N         -73.956688         40.747395   
+         2           1                  N         -73.974586         40.758282   
+         3           1                  N         -74.006714         40.744259   
+         4           1                  N         -73.958771         40.763844   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             2          8.0    0.5      0.5        0.00           0.0   
+         1             1         20.5    0.5      0.5        1.09           0.0   
+         2             1          9.5    0.5      0.5        2.16           0.0   
+         3             2          5.0    0.5      0.5        0.00           0.0   
+         4             1         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3          9.30  
+         1                    0.3         22.89  
+         2                    0.3         12.96  
+         3                    0.3          6.30  
+         4                    0.3         15.30  
+\end{Verbatim}
+            
+    For the remaining questions in part 1, you'll be using nested queries.
+For example, the nested query below selects all rides with passenger
+count equal to 2 from \texttt{Jan16}. Reminder that Python automatically
+replaces the \texttt{"q1d\_query"} in
+\texttt{temporary\_table\_query\_example} with the contents of the
+string variable named \texttt{q1d\_query}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Jan16 to dataframe using temporary table}
+         \PY{n}{temporary\PYZus{}table\PYZus{}query\PYZus{}example} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT *}
+         \PY{l+s+s2}{FROM (}\PY{l+s+si}{\PYZob{}q1d\PYZus{}query\PYZcb{}}\PY{l+s+s2}{)}
+         \PY{l+s+s2}{WHERE passenger\PYZus{}count = 2;}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{temporary\PYZus{}table\PYZus{}query\PYZus{}example}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+SELECT *
+FROM (
+SELECT * 
+            FROM taxi
+            WHERE tpep\_pickup\_datetime
+                BETWEEN '2016-01-01' AND '2016-02-01'
+                AND record\_id \% 100 == 0
+            ORDER BY tpep\_pickup\_datetime
+            )
+WHERE passenger\_count = 2;
+
+    \end{Verbatim}
+
+    The cell below executes this nested query.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} less than 3 seconds}
+             \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{temporary\PYZus{}table\PYZus{}query\PYZus{}example}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.28 s elapsed
+
+    \end{Verbatim}
+
+    \paragraph{Question 2a}\label{question-2a}
+
+Write a SQL query to check if \texttt{Jan16} contains any missing
+values. Unfortunately, in this table, missing values are \emph{not}
+specified with NaN nor empty strings. For example, take a look at record
+ID 136700. What do you observe about the location information?
+
+Write a SQL query \texttt{q2a\_query} that collects all rows that have a
+missing \texttt{tpep\_pickup\_datetime},
+\texttt{tpep\_dropoff\_datetime}, \texttt{pickup\_longitude}, or
+\texttt{pickup\_latitude}. Then set
+\texttt{number\_of\_rows\_with\_missing\_values} to the number of rows
+that have at least one missing value.
+
+In pandas, we could use boolean indexing to filter out these values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Inspecting record 136700 for your convience.}
+         
+         \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT * }
+         \PY{l+s+s2}{FROM }\PY{l+s+si}{\PYZob{}TABLE\PYZus{}NAME\PYZcb{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{WHERE record\PYZus{}id = 136700}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0     136700         1  2016-01-01 03:13:07   2016-01-01 03:28:48   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                1            3.3               0.0              0.0   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.978462         40.783058   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             1         13.5    0.5      0.5        2.95           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3         17.75  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{q2a\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{SELECT *}
+         \PY{l+s+s2}{FROM (}\PY{l+s+si}{\PYZob{}q1d\PYZus{}query\PYZcb{}}\PY{l+s+s2}{)}
+         \PY{l+s+s2}{WHERE pickup\PYZus{}longitude = 0 OR pickup\PYZus{}latitude = 0;}
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{number\PYZus{}of\PYZus{}rows\PYZus{}with\PYZus{}missing\PYZus{}values} \PY{o}{=} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{p}{(}\PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{|}
+                                                       \PY{p}{(}\PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         
+         \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} Should take \PYZlt{} 3 seconds}
+             \PY{n}{q2a\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q2a\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{q2a\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.26 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0     136700         1  2016-01-01 03:13:07   2016-01-01 03:28:48   
+         1     216000         1  2016-01-01 11:46:23   2016-01-01 11:57:50   
+         2     228400         2  2016-01-01 12:40:12   2016-01-01 12:46:35   
+         3     340400         2  2016-01-01 19:37:19   2016-01-01 20:17:57   
+         4     360600         1  2016-01-01 21:06:29   2016-01-01 21:09:41   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                1           3.30               0.0              0.0   
+         1                4           3.50               0.0              0.0   
+         2                1           1.11               0.0              0.0   
+         3                5          20.86               0.0              0.0   
+         4                1           0.70               0.0              0.0   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.978462         40.783058   
+         1           1                  N           0.000000          0.000000   
+         2           1                  N           0.000000          0.000000   
+         3           2                  N           0.000000          0.000000   
+         4           1                  N           0.000000          0.000000   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             1         13.5    0.5      0.5        2.95           0.0   
+         1             1         12.5    0.0      0.5        2.00           0.0   
+         2             2          6.5    0.0      0.5        0.00           0.0   
+         3             1         52.0    0.0      0.5       10.56           0.0   
+         4             2          4.5    0.5      0.5        0.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3         17.75  
+         1                    0.3         15.30  
+         2                    0.3          7.30  
+         3                    0.3         63.36  
+         4                    0.3          5.80  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{number\PYZus{}of\PYZus{}rows\PYZus{}with\PYZus{}missing\PYZus{}values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 371
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} Hidden Test }
+\end{Verbatim}
+
+
+    \subsubsection{Question 2b}\label{question-2b}
+
+Write a SQL query \texttt{q2b\_query} to help determine if there are any
+duplicate records in \texttt{Jan16}. Set the boolean
+\texttt{has\_duplicates} variable to \texttt{True} or \texttt{False}
+based on what you learn. You may use \texttt{len(jan\_16\_df)} in your
+solution.
+
+For comparison, approach two (pandas) for duplicate checking looks like
+\texttt{num\_duplicates\ =\ jan\_16\_df.duplicated(subset=jan\_16\_df.columns).sum()}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.982307         40.747406   
+         1           1                  N         -73.956688         40.747395   
+         2           1                  N         -73.974586         40.758282   
+         3           1                  N         -74.006714         40.744259   
+         4           1                  N         -73.958771         40.763844   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             2          8.0    0.5      0.5        0.00           0.0   
+         1             1         20.5    0.5      0.5        1.09           0.0   
+         2             1          9.5    0.5      0.5        2.16           0.0   
+         3             2          5.0    0.5      0.5        0.00           0.0   
+         4             1         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3          9.30  
+         1                    0.3         22.89  
+         2                    0.3         12.96  
+         3                    0.3          6.30  
+         4                    0.3         15.30  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{num\PYZus{}duplicates} \PY{o}{=} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{duplicated}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{n}{jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{num\PYZus{}duplicates}  \PY{c+c1}{\PYZsh{}0}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} 0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{q2b\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT *}
+         \PY{l+s+s2}{FROM (}\PY{l+s+si}{\PYZob{}q1d\PYZus{}query\PYZcb{}}\PY{l+s+s2}{)}
+         \PY{l+s+s2}{GROUP BY record\PYZus{}id}
+         \PY{l+s+s2}{HAVING count(record\PYZus{}id) \PYZgt{} 1}
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n}{has\PYZus{}duplicates} \PY{o}{=} \PY{k+kc}{False} \PY{c+c1}{\PYZsh{} True or False}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         
+         \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} should take \PYZlt{} 3 seconds}
+             \PY{n}{q2b\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q2b\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{q2b\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.40 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} Empty DataFrame
+         Columns: [record\_id, VendorID, tpep\_pickup\_datetime, tpep\_dropoff\_datetime, passenger\_count, trip\_distance, pickup\_longitude, pickup\_latitude, RatecodeID, store\_and\_fwd\_flag, dropoff\_longitude, dropoff\_latitude, payment\_type, fare\_amount, extra, mta\_tax, tip\_amount, tolls\_amount, improvement\_surcharge, total\_amount]
+         Index: []
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Hidden test}
+\end{Verbatim}
+
+
+    \subsubsection{Question 2c}\label{question-2c}
+
+Find the min and max trip duration in \texttt{Jan16}. You may manually
+fill in the \texttt{min\_duration}, \texttt{max\_duration} placeholders.
+
+\emph{Hint:} check
+\href{https://www.techonthenet.com/sqlite/functions/julianday.php}{\texttt{julianday}}
+in \texttt{SQLite}. Your answer should be decimal representations of a
+day (e.g. 6 hours = 0.25).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.982307         40.747406   
+         1           1                  N         -73.956688         40.747395   
+         2           1                  N         -73.974586         40.758282   
+         3           1                  N         -74.006714         40.744259   
+         4           1                  N         -73.958771         40.763844   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             2          8.0    0.5      0.5        0.00           0.0   
+         1             1         20.5    0.5      0.5        1.09           0.0   
+         2             1          9.5    0.5      0.5        2.16           0.0   
+         3             2          5.0    0.5      0.5        0.00           0.0   
+         4             1         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3          9.30  
+         1                    0.3         22.89  
+         2                    0.3         12.96  
+         3                    0.3          6.30  
+         4                    0.3         15.30  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{q2c\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT MAX(julianday(tpep\PYZus{}dropoff\PYZus{}datetime) \PYZhy{} julianday(tpep\PYZus{}pickup\PYZus{}datetime)) as max\PYZus{}duration,}
+         \PY{l+s+s2}{MIN(julianday(tpep\PYZus{}dropoff\PYZus{}datetime) \PYZhy{} julianday(tpep\PYZus{}pickup\PYZus{}datetime)) as min\PYZus{}duration}
+         \PY{l+s+s2}{FROM (}\PY{l+s+si}{\PYZob{}q1d\PYZus{}query\PYZcb{}}\PY{l+s+s2}{)}
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n}{min\PYZus{}duration} \PY{o}{=} \PY{l+m+mf}{0.0}
+         \PY{n}{max\PYZus{}duration} \PY{o}{=} \PY{l+m+mf}{0.99919}
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} should take \PYZlt{} 3 seconds}
+             \PY{n}{q2c\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q2c\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{q2c\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.28 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}    max\_duration  min\_duration
+         0       0.99919           0.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{df\PYZus{}min\PYZus{}seconds} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tpep\PYZus{}dropoff\PYZus{}datetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tpep\PYZus{}pickup\PYZus{}datetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{total\PYZus{}seconds}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df\PYZus{}max\PYZus{}seconds} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tpep\PYZus{}dropoff\PYZus{}datetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tpep\PYZus{}pickup\PYZus{}datetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{total\PYZus{}seconds}\PY{p}{(}\PY{p}{)}
+         \PY{k}{assert} \PY{n}{min\PYZus{}duration} \PY{o}{==} \PY{n}{df\PYZus{}min\PYZus{}seconds}\PY{o}{/}\PY{l+m+mi}{86400}
+         \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{isclose}\PY{p}{(}\PY{n}{max\PYZus{}duration}\PY{p}{,}\PY{n}{df\PYZus{}max\PYZus{}seconds}\PY{o}{/}\PY{l+m+mi}{86400}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{df\PYZus{}min\PYZus{}seconds}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 0.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{df\PYZus{}max\PYZus{}seconds}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} 86330.0
+\end{Verbatim}
+            
+    The cell above should have shown that some trips are extremely long
+(almost a day)! What is up with this? There may be several reasons why
+we have a handful of taxi rides with abnormally high durations.
+
+Using our domain knowledge about taxi businesses in NYC, we might
+believe that taxi drivers accidentally left their meters running, which
+causes high duration values to be recorded. This is a plausible
+explanation. Because of this, we will only train and predict on taxi
+ride data that has a duration of at most 12 hours.
+
+    \subsection{Question 3: Data Cleaning}\label{question-3-data-cleaning}
+
+Now let's use domain knowledge and clean up our data. You will use SQL
+while we perform the equivalent operations in pandas on
+\texttt{cleaned\_jan\_16\_df}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.982307         40.747406   
+         1           1                  N         -73.956688         40.747395   
+         2           1                  N         -73.974586         40.758282   
+         3           1                  N         -74.006714         40.744259   
+         4           1                  N         -73.958771         40.763844   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             2          8.0    0.5      0.5        0.00           0.0   
+         1             1         20.5    0.5      0.5        1.09           0.0   
+         2             1          9.5    0.5      0.5        2.16           0.0   
+         3             2          5.0    0.5      0.5        0.00           0.0   
+         4             1         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3          9.30  
+         1                    0.3         22.89  
+         2                    0.3         12.96  
+         3                    0.3          6.30  
+         4                    0.3         15.30  
+\end{Verbatim}
+            
+    \subsubsection{Question 3a}\label{question-3a}
+
+Write a SQL Query to find all rides in \texttt{Jan16} that are less than
+12 hours, or 0.5 days. We will use this query as a nested query
+\texttt{q3a\_query} in question 3b.
+
+\emph{Hint:} Ideas in \texttt{q1d\_query} can be heavily reused
+
+    q1d\_query = f"""
+
+SELECT *
+
+\begin{verbatim}
+        FROM {TABLE_NAME}
+        
+        WHERE tpep_pickup_datetime
+            
+            BETWEEN '2016-01-01' AND '2016-02-01'
+            
+            AND record_id % 100 == 0
+        
+        ORDER BY tpep_pickup_datetime
+        
+        """
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{q3a\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT *}
+         \PY{l+s+s2}{FROM (}\PY{l+s+si}{\PYZob{}q1d\PYZus{}query\PYZcb{}}\PY{l+s+s2}{)}
+         \PY{l+s+s2}{WHERE (julianday(tpep\PYZus{}dropoff\PYZus{}datetime) \PYZhy{} julianday(tpep\PYZus{}pickup\PYZus{}datetime)) \PYZlt{} 0.5}
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} should take \PYZlt{} 3 seconds}
+             \PY{n}{q3a\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q3a\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{q3a\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.47 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.982307         40.747406   
+         1           1                  N         -73.956688         40.747395   
+         2           1                  N         -73.974586         40.758282   
+         3           1                  N         -74.006714         40.744259   
+         4           1                  N         -73.958771         40.763844   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             2          8.0    0.5      0.5        0.00           0.0   
+         1             1         20.5    0.5      0.5        1.09           0.0   
+         2             1          9.5    0.5      0.5        2.16           0.0   
+         3             2          5.0    0.5      0.5        0.00           0.0   
+         4             1         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3          9.30  
+         1                    0.3         22.89  
+         2                    0.3         12.96  
+         3                    0.3          6.30  
+         4                    0.3         15.30  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tpep\PYZus{}dropoff\PYZus{}datetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tpep\PYZus{}pickup\PYZus{}datetime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{total\PYZus{}seconds}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{12} \PY{o}{*} \PY{l+m+mi}{3600}\PY{p}{]}
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{q3a\PYZus{}df}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{q3a\PYZus{}df}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} (23642, 23642)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag    {\ldots}     dropoff\_latitude  payment\_type  \textbackslash{}
+         0           1                  N    {\ldots}            40.747406             2   
+         1           1                  N    {\ldots}            40.747395             1   
+         2           1                  N    {\ldots}            40.758282             1   
+         3           1                  N    {\ldots}            40.744259             2   
+         4           1                  N    {\ldots}            40.763844             1   
+         
+            fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0          8.0    0.5      0.5        0.00           0.0   
+         1         20.5    0.5      0.5        1.09           0.0   
+         2          9.5    0.5      0.5        2.16           0.0   
+         3          5.0    0.5      0.5        0.00           0.0   
+         4         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  duration  
+         0                    0.3          9.30     578.0  
+         1                    0.3         22.89    1550.0  
+         2                    0.3         12.96     547.0  
+         3                    0.3          6.30     264.0  
+         4                    0.3         15.30     952.0  
+         
+         [5 rows x 21 columns]
+\end{Verbatim}
+            
+    \subsubsection{Question 3b}\label{question-3b}
+
+Our objective is to predict the duration of taxi rides in the New York
+City region. Therefore, we should verify that our dataset contains only
+rides that are either starting or ending in New York (or are contained
+within the NY region).
+
+Based on different coordinate estimates of New York City, the
+(inclusive) latitude and longitude ranges are (roughly) as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  Latitude is between 40.63 and 40.85
+\item
+  Longitude is between -74.03 and -73.75
+\end{itemize}
+
+Write a SQL query to find all rides in \texttt{q3a\_query} that are
+within the New York City region. We will use this query as a temporary
+table \texttt{q3b\_query} in question 3c.
+
+\begin{itemize}
+\tightlist
+\item
+  Note: This query can be tedious to write. In practice people use
+  special data types to encode geographical information. For example, if
+  we were using Postgres (made in Berkeley!) instead of SQLite, we could
+  use the geo-spatial data types provided as part of
+  \href{https://postgis.net/}{PostGIS}.
+\end{itemize}
+
+\emph{Hint:} Ideas in \texttt{q3a\_query} can be heavily reused
+
+    q3a\_query = f"""
+
+SELECT *
+
+FROM (\{q1d\_query\})
+
+WHERE (julianday(tpep\_dropoff\_datetime) -
+julianday(tpep\_pickup\_datetime)) \textless{} 0.5
+
+Hint from f strings:
+
+def to\_lowercase(input):
+
+\begin{verbatim}
+return input.lower()
+\end{verbatim}
+
+name = "Eric Idle"
+
+f"\{to\_lowercase(name)\} is funny."
+
+'eric idle is funny.'
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} Try using this function!}
+         \PY{k}{def} \PY{n+nf}{bounding\PYZus{}condition}\PY{p}{(}\PY{n}{lat\PYZus{}l}\PY{p}{,} \PY{n}{lat\PYZus{}u}\PY{p}{,} \PY{n}{lon\PYZus{}l}\PY{p}{,} \PY{n}{lon\PYZus{}u}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{            pickup\PYZus{}longitude \PYZlt{}= }\PY{l+s+si}{\PYZob{}lon\PYZus{}u\PYZcb{}}\PY{l+s+s2}{ AND}
+         \PY{l+s+s2}{            pickup\PYZus{}longitude \PYZgt{}= }\PY{l+s+si}{\PYZob{}lon\PYZus{}l\PYZcb{}}\PY{l+s+s2}{ AND}
+         \PY{l+s+s2}{            dropoff\PYZus{}longitude \PYZlt{}= }\PY{l+s+si}{\PYZob{}lon\PYZus{}u\PYZcb{}}\PY{l+s+s2}{ AND}
+         \PY{l+s+s2}{            dropoff\PYZus{}longitude \PYZgt{}= }\PY{l+s+si}{\PYZob{}lon\PYZus{}l\PYZcb{}}\PY{l+s+s2}{ AND}
+         \PY{l+s+s2}{            pickup\PYZus{}latitude \PYZlt{}= }\PY{l+s+si}{\PYZob{}lat\PYZus{}u\PYZcb{}}\PY{l+s+s2}{ AND}
+         \PY{l+s+s2}{            pickup\PYZus{}latitude \PYZgt{}= }\PY{l+s+si}{\PYZob{}lat\PYZus{}l\PYZcb{}}\PY{l+s+s2}{ AND}
+         \PY{l+s+s2}{            dropoff\PYZus{}latitude \PYZlt{}= }\PY{l+s+si}{\PYZob{}lat\PYZus{}u\PYZcb{}}\PY{l+s+s2}{ AND}
+         \PY{l+s+s2}{            dropoff\PYZus{}latitude \PYZgt{}= }\PY{l+s+si}{\PYZob{}lat\PYZus{}l\PYZcb{}}\PY{l+s+s2}{ }
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n}{q3b\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT *}
+         \PY{l+s+s2}{FROM (}\PY{l+s+si}{\PYZob{}q3a\PYZus{}query\PYZcb{}}\PY{l+s+s2}{)}
+         \PY{l+s+s2}{WHERE }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{bounding\PYZus{}condition(40.63, 40.85, \PYZhy{}74.03, \PYZhy{}73.75)\PYZcb{}}
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{n}{lat\PYZus{}l} \PY{o}{=} \PY{l+m+mf}{40.63}
+         \PY{n}{lat\PYZus{}u} \PY{o}{=} \PY{l+m+mf}{40.85}
+         \PY{n}{lon\PYZus{}l} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{74.03}
+         \PY{n}{lon\PYZus{}u} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{73.75}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} should take \PYZlt{} 3 seconds}
+             \PY{n}{q3b\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q3b\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{q3b\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.49 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.982307         40.747406   
+         1           1                  N         -73.956688         40.747395   
+         2           1                  N         -73.974586         40.758282   
+         3           1                  N         -74.006714         40.744259   
+         4           1                  N         -73.958771         40.763844   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             2          8.0    0.5      0.5        0.00           0.0   
+         1             1         20.5    0.5      0.5        1.09           0.0   
+         2             1          9.5    0.5      0.5        2.16           0.0   
+         3             2          5.0    0.5      0.5        0.00           0.0   
+         4             1         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3          9.30  
+         1                    0.3         22.89  
+         2                    0.3         12.96  
+         3                    0.3          6.30  
+         4                    0.3         15.30  
+\end{Verbatim}
+            
+    By contrast, the approach two (pandas) equivalent is given below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{73.75}\PY{p}{]}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{74.03}\PY{p}{]}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{40.85}\PY{p}{]}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{40.63}\PY{p}{]}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dropoff\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{73.75}\PY{p}{]}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dropoff\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{74.03}\PY{p}{]}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dropoff\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mf}{40.85}\PY{p}{]}
+         \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dropoff\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{40.63}\PY{p}{]}
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{q3b\PYZus{}df}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{q3b\PYZus{}df}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} (22944, 22944)
+\end{Verbatim}
+            
+    \subsubsection{Question 3c}\label{question-3c}
+
+The \texttt{passenger\_count} variable has a minimum value of 0
+passengers and a maximum value of 9 passengers. Having 0 passengers does
+not make sense in the context of this business case; it is likely an
+error and should therefore be removed from our dataset.
+
+Write a SQL query to find all rides in \texttt{q3b\_query} with
+\texttt{passenger\_count} greater than 0.
+
+\emph{Hint:} Ideas in \texttt{q3b\_query} can be heavily reused
+
+    Use q3b\_query!
+
+def bounding\_condition(lat\_l, lat\_u, lon\_l, lon\_u): return f"""
+pickup\_longitude \textless{}= \{lon\_u\} AND pickup\_longitude
+\textgreater{}= \{lon\_l\} AND dropoff\_longitude \textless{}=
+\{lon\_u\} AND dropoff\_longitude \textgreater{}= \{lon\_l\} AND
+pickup\_latitude \textless{}= \{lat\_u\} AND pickup\_latitude
+\textgreater{}= \{lat\_l\} AND dropoff\_latitude \textless{}= \{lat\_u\}
+AND dropoff\_latitude \textgreater{}= \{lat\_l\} """
+
+q3b\_query = f"""
+
+SELECT *
+
+FROM (\{q3a\_query\})
+
+WHERE \{bounding\_condition(40.63, 40.85, -74.03, -73.75)\}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k}{def} \PY{n+nf}{passenger\PYZus{}condition}\PY{p}{(}\PY{n}{passenger\PYZus{}amount}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{        passenger\PYZus{}count \PYZgt{} }\PY{l+s+si}{\PYZob{}passenger\PYZus{}amount\PYZcb{}}
+         \PY{l+s+s2}{        }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         
+         \PY{n}{q3c\PYZus{}query} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{SELECT *}
+         \PY{l+s+s2}{FROM (}\PY{l+s+si}{\PYZob{}q3b\PYZus{}query\PYZcb{}}\PY{l+s+s2}{)}
+         \PY{l+s+s2}{WHERE }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{passenger\PYZus{}condition(0)\PYZcb{}}
+         \PY{l+s+s2}{            }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         \PY{k}{with} \PY{n}{timeit}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{q3c\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql\PYZus{}query}\PY{p}{(}\PY{n}{q3c\PYZus{}query}\PY{p}{,} \PY{n}{sql\PYZus{}engine}\PY{p}{)}
+         \PY{n}{q3c\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.46 s elapsed
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}    record\_id  VendorID tpep\_pickup\_datetime tpep\_dropoff\_datetime  \textbackslash{}
+         0      37300         1  2016-01-01 00:02:20   2016-01-01 00:11:58   
+         1      37400         1  2016-01-01 00:03:04   2016-01-01 00:28:54   
+         2      37500         2  2016-01-01 00:03:40   2016-01-01 00:12:47   
+         3      37900         2  2016-01-01 00:05:38   2016-01-01 00:10:02   
+         4      38500         1  2016-01-01 00:07:50   2016-01-01 00:23:42   
+         
+            passenger\_count  trip\_distance  pickup\_longitude  pickup\_latitude  \textbackslash{}
+         0                2           1.20        -73.990578        40.732883   
+         1                1           5.00        -73.994286        40.749153   
+         2                6           2.54        -73.949821        40.785412   
+         3                3           0.76        -74.002998        40.739220   
+         4                1           2.40        -73.992546        40.766624   
+         
+            RatecodeID store\_and\_fwd\_flag  dropoff\_longitude  dropoff\_latitude  \textbackslash{}
+         0           1                  N         -73.982307         40.747406   
+         1           1                  N         -73.956688         40.747395   
+         2           1                  N         -73.974586         40.758282   
+         3           1                  N         -74.006714         40.744259   
+         4           1                  N         -73.958771         40.763844   
+         
+            payment\_type  fare\_amount  extra  mta\_tax  tip\_amount  tolls\_amount  \textbackslash{}
+         0             2          8.0    0.5      0.5        0.00           0.0   
+         1             1         20.5    0.5      0.5        1.09           0.0   
+         2             1          9.5    0.5      0.5        2.16           0.0   
+         3             2          5.0    0.5      0.5        0.00           0.0   
+         4             1         12.0    0.5      0.5        2.00           0.0   
+         
+            improvement\_surcharge  total\_amount  
+         0                    0.3          9.30  
+         1                    0.3         22.89  
+         2                    0.3         12.96  
+         3                    0.3          6.30  
+         4                    0.3         15.30  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df} \PY{o}{=} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passenger\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{q3c\PYZus{}df}\PY{p}{)} \PY{o}{==} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Question 3d}\label{question-3d}
+
+If you passed all the previous tests, then we are done cleaning! We
+would like to check how many records we have removed to ensure that it
+is a relatively small number (otherwise we might introduce bias within
+our dataset). In the cell below calculate the number and proportion of
+records we removed from the original \texttt{jan\_16\_df} during the
+data cleaning process.
+
+To avoid possible error propagation, you should use our
+\texttt{cleaned\_jan\_16\_df} in your solution as the final cleaned
+dataset instead of your \texttt{q3c\_df}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{num\PYZus{}records\PYZus{}removed} \PY{o}{=} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{proportion\PYZus{}records\PYZus{}removed} \PY{o}{=} \PY{n}{num\PYZus{}records\PYZus{}removed} \PY{o}{/} \PY{n}{jan\PYZus{}16\PYZus{}df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}raise NotImplementedError()}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Records removed:}\PY{l+s+si}{\PYZob{}num\PYZus{}records\PYZus{}removed\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proportion records removed:}\PY{l+s+si}{\PYZob{}proportion\PYZus{}records\PYZus{}removed\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Records removed:731
+Proportion records removed:0.030877756188223367
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k}{assert} \PY{n}{proportion\PYZus{}records\PYZus{}removed} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.04}
+         \PY{k}{assert} \PY{n}{proportion\PYZus{}records\PYZus{}removed} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.03}
+\end{Verbatim}
+
+
+    At this point, let's take a look at the final query that cleaned up the
+data. Nesting SQL queries or creating views for future re-use are common
+pattern in analytical queries. Pay attention to each WHERE clause.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{q3c\PYZus{}query}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+SELECT *
+FROM (
+SELECT *
+FROM (
+SELECT *
+FROM (
+SELECT * 
+            FROM taxi
+            WHERE tpep\_pickup\_datetime
+                BETWEEN '2016-01-01' AND '2016-02-01'
+                AND record\_id \% 100 == 0
+            ORDER BY tpep\_pickup\_datetime
+            )
+WHERE (julianday(tpep\_dropoff\_datetime) - julianday(tpep\_pickup\_datetime)) < 0.5
+            )
+WHERE 
+            pickup\_longitude <= -73.75 AND
+            pickup\_longitude >= -74.03 AND
+            dropoff\_longitude <= -73.75 AND
+            dropoff\_longitude >= -74.03 AND
+            pickup\_latitude <= 40.85 AND
+            pickup\_latitude >= 40.63 AND
+            dropoff\_latitude <= 40.85 AND
+            dropoff\_latitude >= 40.63 
+            
+            )
+WHERE 
+        passenger\_count > 0
+        
+            
+
+    \end{Verbatim}
+
+    \subsection{Question 4: Training and Validation
+Split}\label{question-4-training-and-validation-split}
+
+Now that we have fetched and cleaned our data, let's create training and
+validation sets. We will use a 80/20 ratio for training/validation and
+set \texttt{random\_state=42} for the purpose of grading.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{train\PYZus{}df}\PY{p}{,} \PY{n}{val\PYZus{}df} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{cleaned\PYZus{}jan\PYZus{}16\PYZus{}df}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} Check that 80\PYZpc{} records in training and 20\PYZpc{} in validation set.}
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{18500}
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{17000}
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{val\PYZus{}df}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{4000}
+         \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{val\PYZus{}df}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{5000}
+\end{Verbatim}
+
+
+    \subsection{Part 1 Exports}\label{part-1-exports}
+
+    Throughout our analysis, we have formatted and cleaned our data. Since
+we are ready to begin the feature engineering process, a good practice
+is to start a new notebook (since this one is getting quite long!). Now,
+we will save our formatted data, which we will load in part 2.
+\textbf{Be sure to run the cell below!}
+
+Please read the documentation below on saving and loading hdf files.
+
+https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to\_hdf.html
+
+https://pandas.pydata.org/pandas-docs/version/0.22/generated/pandas.read\_hdf.html
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{Path}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/part1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mkdir}\PY{p}{(}\PY{n}{parents}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{exist\PYZus{}ok}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{data\PYZus{}file} \PY{o}{=} \PY{n}{Path}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data/part1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{cleaned\PYZus{}data.hdf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Path of hdf file}
+         \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}hdf}\PY{p}{(}\PY{n}{data\PYZus{}file}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Train data of hdf file}
+         \PY{n}{val\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}hdf}\PY{p}{(}\PY{n}{data\PYZus{}file}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{val}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Val data of hdf file}
+\end{Verbatim}
+
+
+    \subsection{Part 1 Conclusions}\label{part-1-conclusions}
+
+    We have downloaded/loaded our data, cleaned the data, and split our data
+into a training and test set to use in future analysis and modeling.
+
+    \textbf{Please proceed to part 2, where we will be exploring the taxi
+ride training set.}
+
+    \subsection{Submission}\label{submission}
+
+You're almost done!
+
+Before submitting this assignment, ensure that you have:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Restarted the Kernel (in the menubar, select
+  Kernel\(\rightarrow\)Restart \& Run All)
+\item
+  Validated the notebook by clicking the "Validate" button.
+\end{enumerate}
+
+Then,
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Submit} the assignment via the Assignments tab in
+  \textbf{Datahub}
+\item
+  \textbf{Upload and tag} the manually reviewed portions of the
+  assignment on \textbf{Gradescope}
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
